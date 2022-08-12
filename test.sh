@@ -81,35 +81,54 @@ echo "$(tput bold)$(tput setaf 4)"ENTER CIPHER TEXT FILE NAME TO DECRYPT"$(tput 
     read -r decFile
     printf "\n"
 
-while read line; do
-    for word in $line; do
-        k=$word
-    done
-done <"c.txt"
-key="${k:4:8}${k:0:4}"
-printf "\n"
-echo "$(tput setaf 1)"ENCRYPTION KEY WAS FOUND SUCCESSFULLY"$(tput sgr0)"
-echo "IN BINARY==>${key}"
-echo -n "IN DECIMAL==>"
-echo "$((2#$key))"
-printf "\n"
+# while read line; do
+#     for word in $line; do
+#         k=$word
+#     done
+# done <"c.txt"
+# key="${k:4:8}${k:0:4}"
+# printf "\n"
+# echo "$(tput setaf 1)"ENCRYPTION KEY WAS FOUND SUCCESSFULLY"$(tput sgr0)"
+# echo "IN BINARY==>${key}"
+# echo -n "IN DECIMAL==>"
+# echo "$((2#$key))"
+# printf "\n"
 
-while read l; do
-    for w in $l; do
-        if [ "${w:4:8}${w:0:4}" != "$key" ]; then
-            if [ "$w" != 00100000 ]; then
-                ascibinary="${w:4:8}${w:0:4}"
-                xor_2=$(perl -e 'printf("%.8b",oct("0b".$ARGV[0])^oct("0b".$ARGV[1]))' $ascibinary $key)
-            else
-                xor_2=$w
-            fi
-            ascichar=$(echo "$xor_2" | perl -lpe '$_=pack"B*",$_')
-            echo -n "$ascichar"
-        else
-            continue
-        fi
-    done
-done <"c.txt"
+# while read l; do
+#     for w in $l; do
+#         if [ "${w:4:8}${w:0:4}" != "$key" ]; then
+#             if [ "$w" != 00100000 ]; then
+#                 ascibinary="${w:4:8}${w:0:4}"
+#                 xor_2=$(perl -e 'printf("%.8b",oct("0b".$ARGV[0])^oct("0b".$ARGV[1]))' $ascibinary $key)
+#             else
+#                 xor_2=$w
+#             fi
+#             ascichar=$(echo "$xor_2" | perl -lpe '$_=pack"B*",$_')
+#             echo -n "$ascichar"
+#         else
+#             continue
+#         fi
+#     done
+# done <"c.txt"
 
 
 # echo "001000000110111000100000" | perl -lpe '$_=pack"B*",$_'
+
+
+while true; do
+    echo "$(tput bold)$(tput setaf 4)"ENTER CIPHER TEXT FILE NAME TO DECRYPT -OR- ENTER -1 TO EXIT"$(tput sgr0)"
+    printf "==>"
+    read -r decFile
+    printf "\n"
+
+    if [ "$decFile" == "-1" ]; then
+        echo 'PROGRAM ENDED'
+        exit
+    fi
+
+    if [ ! -e "$decFile" ]; then
+        echo "${decFile} DOES NOT EXIST ON Y0UR DIRECTORY TRY AGAIN"
+        continue
+    fi
+    break
+done
