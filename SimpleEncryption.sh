@@ -157,9 +157,12 @@ while true; do
     echo ""-------------------------------------------------------"$(tput sgr0)"
     echo -n "==>"
     read -r choice
+    
+    toUpper=$(echo -e "${choice}" | tr '[:lower:]' '[:upper:]')
 
-    case $choice in
+    case $toUpper in
 
+    
     \
     E) encryption $fileName ;;
     D) decryption ;;
