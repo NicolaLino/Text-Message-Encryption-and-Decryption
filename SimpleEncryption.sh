@@ -157,7 +157,7 @@ while true; do
     echo ""-------------------------------------------------------"$(tput sgr0)"
     echo -n "==>"
     read -r choice
-    
+
     toUpper=$(echo -e "${choice}" | tr '[:lower:]' '[:upper:]')
 
     case $toUpper in
