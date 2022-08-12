@@ -75,19 +75,30 @@ function encryption() {
     # echo -e "\n"
 }
 
-
 function decryption() {
-    echo "$(tput bold)$(tput setaf 4)"ENTER CIPHER TEXT FILE NAME TO DECRYPT"$(tput sgr0)"
-    printf "==>"
-    read -r decFile
-    printf "\n"
+    while true; do
+        echo "$(tput bold)$(tput setaf 4)"ENTER CIPHER TEXT FILE NAME TO DECRYPT -OR- ENTER -1 TO EXIT"$(tput sgr0)"
+        printf "==>"
+        read -r decFile
+        printf "\n"
+
+        if [ "$decFile" == "-1" ]; then
+            echo "$(tput setaf 6)"PROGRAM ENDED"$(tput sgr0)"
+            exit
+        fi
+
+        if [ ! -e "$decFile" ]; then
+            echo "$(tput setaf 1)""${decFile}" DOES NOT EXIST ON Y0UR DIRECTORY TRY AGAIN"$(tput sgr0)"
+            continue
+        fi
+        break
+    done
 
     while read -r line; do
         for word in $line; do
             k=$word
         done
     done <"$decFile"
-
 
     key="${k:4:8}${k:0:4}"
     printf "\n"
@@ -101,7 +112,6 @@ function decryption() {
     printf "==>"
     read -r plainfile
     printf "\n"
-
 
     while read -r l; do
         for w in $l; do
@@ -122,8 +132,6 @@ function decryption() {
 
 }
 
-
-
 echo "$(tput bold)$(tput setaf 2)"------------------------------------------------------""
 
 echo "---------------------- WELCOME! -----------------------"
@@ -138,12 +146,12 @@ while true; do
     echo $(tput sgr0)
 
     if [ "$fileName" == "-1" ]; then
-        echo 'PROGRAM ENDED'
+        echo "$(tput setaf 6)"PROGRAM ENDED"$(tput sgr0)"
         exit
     fi
 
     if [ ! -e "$fileName" ]; then
-        echo "${fileName} DOES NOT EXIST ON Y0UR DIRECTORY TRY AGAIN"
+        echo "$(tput setaf 1)""${fileName}" DOES NOT EXIST ON Y0UR DIRECTORY TRY AGAIN"$(tput sgr0)"
         continue
     fi
     break
@@ -162,9 +170,9 @@ while true; do
 
     case $toUpper in
 
-    
     \
-    E) encryption $fileName ;;
+        \
+        E) encryption $fileName ;;
     D) decryption ;;
     Q) break ;;
 
