@@ -5,6 +5,7 @@ Shell script that does simple encryption/decryption algorithm for text messages 
 #### Tasks
 - [x] Handling lower case in menu input
 - [x] Handling wrong input file name
-- [ ] Adding Comments
+- [x] Adding Comments
 - [ ] Report
-- [ ] Complete README 
+- [ ] Complete README
+- [x] Testing with different cases 
