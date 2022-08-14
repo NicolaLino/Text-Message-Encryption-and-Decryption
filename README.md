@@ -25,7 +25,7 @@ the character. The result will be 8-binary digit.
 **Step 5**: at the end, swap the first 4-bit with the last four bit of the key and add it as the last character of the 
 generated file.
 
-![](images/1.png)
+
 
 ## Decryption process:
 The process for the decryption algorithm can be summarized in the following steps:
@@ -37,12 +37,12 @@ The process for the decryption algorithm can be summarized in the following step
 **Step 3**: Do the XOR between the key and each character from the encrypted file.
 
 
-
+![](images/3.png)
 
 #### Tasks
 - [x] Handling lower case in menu input
 - [x] Handling wrong input file name
 - [x] Adding Comments
 - [ ] Report
-- [ ] Complete README
+- [x] Complete README
 - [x] Testing with different cases 
