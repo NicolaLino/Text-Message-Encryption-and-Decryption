@@ -3,7 +3,7 @@
 function encryption() {
     arrsum=() # array to store the sum of characters numbers
 
-    while read line; do # loop in every line in the file
+    while read -r line; do # loop in every line in the file
 
         for word in $line; do
             sum=0
@@ -36,7 +36,7 @@ function encryption() {
     printf "\n"
     echo "$(tput setaf 1)"ENCRYPTION KEY WAS GENERATED SUCCESSFULLY"$(tput sgr0)"
     echo "IN DECIMAL==>${max}"
-    binarymax=$(echo "obase=2;$max" | bc) # convert key from decimal to binary
+    binarymax=$(echo "obase=2;$max" | bc)     # convert key from decimal to binary
     binarymax=$(printf "%08d\n" "$binarymax") # always 8 bits
     echo "IN BINARY==>${binarymax}"
     printf "\n"
@@ -47,7 +47,7 @@ function encryption() {
 
     echo -n "" >"$encFile" #empty the file
 
-    while read line; do
+    while read -r line; do
 
         for word in $line; do
 
@@ -79,6 +79,7 @@ function encryption() {
 }
 
 function decryption() {
+
     while true; do #open cipher file
         echo "$(tput bold)$(tput setaf 4)"ENTER CIPHER TEXT FILE NAME TO DECRYPT -OR- ENTER -1 TO EXIT"$(tput sgr0)"
         printf "==>"
@@ -97,7 +98,7 @@ function decryption() {
         break
     done
 
-    while read -r line; do # fing encryption key
+    while read -r line; do # find encryption key
         for word in $line; do
             k=$word
         done
@@ -114,11 +115,14 @@ function decryption() {
     echo "$(tput bold)$(tput setaf 4)"ENTER A FILE NAME YOU WANT TO SAVE PLAIN TEXT INTO"$(tput sgr0)"
     printf "==>"
     read -r plainfile
+    
     printf "\n"
 
     # loop through the file to decrypt
     while read -r l; do
+
         for w in $l; do
+
             if [ "${w:4:8}${w:0:4}" != "$key" ]; then
                 if [ "$w" != 00100000 ]; then
                     ascibinary="${w:4:8}${w:0:4}"
@@ -138,11 +142,15 @@ function decryption() {
 
 clear
 
-echo "$(tput bold)$(tput setaf 2)"------------------------------------------------------""
+echo "$(tput bold)$(tput setaf 2)" -------------------------------------------------------""
 
-echo "---------------------- WELCOME! -----------------------"
+echo "|                                                       |"
 
-echo ""-------------------------------------------------------"$(tput sgr0)"
+echo "|         TEXT MESSAGE ENCRYPTION / DECRYPTION          |"
+
+echo "|                                                       |"
+
+echo "" -------------------------------------------------------"$(tput sgr0)"
 
 echo "$(tput setaf 4)"PLEASE ENTER A FILE NAME YOU WANT TO READ -OR- ENTER -1 TO EXIT""
 
@@ -164,11 +172,13 @@ while true; do
 done
 
 while true; do
-    echo "$(tput bold)$(tput setaf 2)"-------------------------------------------------------""
-    echo 'E. Encrypt The File'
-    echo 'D. Decrypt The File'
-    echo 'Q. EXIT'
-    echo ""-------------------------------------------------------"$(tput sgr0)"
+    echo "$(tput bold)$(tput setaf 2)" -------------------------------------------------------""
+    echo "|                                                       |"
+    echo '|  E. Encrypt The File                                  |'
+    echo '|  D. Decrypt The File                                  |'
+    echo '|  Q. EXIT                                              |'
+    echo "|                                                       |"
+    echo "" -------------------------------------------------------"$(tput sgr0)"
     echo -n "==>"
     read -r choice
 
@@ -177,6 +187,7 @@ while true; do
     case $toUpper in
 
     \
+        \
         \
         E) encryption $fileName ;;
     D) decryption ;;
