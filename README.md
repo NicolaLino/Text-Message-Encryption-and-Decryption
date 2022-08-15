@@ -39,10 +39,32 @@ The process for the decryption algorithm can be summarized in the following step
 
 ![](images/3.png)
 
-#### Tasks
+### ⚙️ How to use it?
+*The usage of this script is pretty simple, just follow the below steps.*
+
+1. First of all clone this repository to your local machine using this command.
+    ```shell
+    git clone https://github.com/NicolaLino/Text-Message-Encryption-and-Decryption.git
+    ```
+2. Now once you successfully cloned the repository now change your working directory and go to the project directory.
+    ```shell
+    cd Text-Message-Encryption-and-Decryption
+    ```
+3.  Now we are almost there, to run this use this command.
+    ```shell
+    ./SimpleEncryption.sh
+    ```
+    *This is the main shell script containing all the encryption and decryption functionalities*
+4. Enter the file name *(if present in same directory)* or enter the path of the file.
+5. After that you will get an option to that what you want to do **E** to encrypt a file or **D** to decrypt a file.
+
+
+
+
+<!-- #### Tasks
 - [x] Handling lower case in menu input
 - [x] Handling wrong input file name
 - [x] Adding Comments
-- [ ] Report
+- [x] Report
 - [x] Complete README
-- [x] Testing with different cases 
+- [x] Testing with different cases  -->
