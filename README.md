@@ -56,7 +56,7 @@ The process for the decryption algorithm can be summarized in the following step
     ```
     *This is the main shell script containing all the encryption and decryption functionalities*
 4. Enter the file name *(if present in same directory)* or enter the path of the file.
-5. After that you will get an option to that what you want to do **E** to encrypt a file or **D** to decrypt a file.
+5. After that you will get an option to that what you want to do **E** to encrypt the file or **D** to decrypt the file.
 
 
 
