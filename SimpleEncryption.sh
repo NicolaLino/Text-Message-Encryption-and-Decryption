@@ -50,32 +50,21 @@ function encryption() {
     while read -r line; do
 
         for word in $line; do
-
+            echo -e -n "00100000 " >>"$encFile"
             for ((i = 0; i < ${#word}; i++)); do # loop for each letter in the file
 
                 AscValue=$(echo "${word:$i:1}" | tr -d "\n" | od -An -t dC) # find the ascii value of the letter
                 BinaryAscValue=$(echo "obase=2;$AscValue" | bc)             # convert it to binary
-
-                if [ "$BinaryAscValue" != 1101 ]; then
-                    # echo "$(($BinaryAscValue ^ $max))"
-                    xor=$(perl -e 'printf("%.8b",oct("0b".$ARGV[0])^oct("0b".$ARGV[1]))' $binarymax $BinaryAscValue) #XOR key with ascii binary of the letter
-                    echo -e -n "${xor:4:8}${xor:0:4} " >>"$encFile"                                                  # flip first 4 bits with last 4 bits
-                else
-                    continue
-                fi
+                BinaryAscValue=$(printf "%08d\n" "$BinaryAscValue")
+                xor=$(perl -e 'printf("%.8b",oct("0b".$ARGV[0])^oct("0b".$ARGV[1]))' $binarymax $BinaryAscValue) #XOR key with ascii binary of the letter
+                echo -e -n "${xor:4:8}${xor:0:4} " >>"$encFile"
+                
             done
-
-            if [ "$BinaryAscValue" != 1101 ]; then
-                echo -e -n "00100000 " >>"$encFile"
-            else
-                continue
-            fi
 
         done
     done <"$fileName"
 
     echo -e -n "${binarymax:4:8}${binarymax:0:4} \n" >>"$encFile" # add encryption key to the end of the file after fliping first 4 bits with last 4 bits
-    # echo -e "\n"
 }
 
 function decryption() {
@@ -115,7 +104,7 @@ function decryption() {
     echo "$(tput bold)$(tput setaf 4)"ENTER A FILE NAME YOU WANT TO SAVE PLAIN TEXT INTO"$(tput sgr0)"
     printf "==>"
     read -r plainfile
-    
+
     printf "\n"
 
     # loop through the file to decrypt
